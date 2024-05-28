@@ -2,6 +2,18 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+require_once './inc/functions.php';
+
+// Check if the user is logged in
+if (!isset($_SESSION['user'])) {
+    // Redirect the user to the login page
+    redirect('login.php');
+    exit; // Stop further execution
+}
+
+// Get the user details from the session
+$user = $_SESSION['user'];
 ?>
 
 <!DOCTYPE html>
@@ -60,10 +72,9 @@ if (session_status() === PHP_SESSION_NONE) {
         }
     </style>
 </head>
-</form>
 <body>
     <h1>Account Settings</h1>
-    <form method="post" action="update_settings.php">
+    <form method="post" action="update_settings.php"> <!-- Update form action -->
         <label for="F_name">First Name:</label>
         <input type="text" id="F_name" name="F_name" value="<?= htmlspecialchars($user['F_name'] ?? '') ?>"><br>
 
@@ -79,12 +90,27 @@ if (session_status() === PHP_SESSION_NONE) {
         <label for="Address">Address:</label>
         <textarea id="Address" name="Address"><?= htmlspecialchars($user['Address'] ?? '') ?></textarea><br>
 
-        <input type="submit" value="Save Changes" style="background-color: #94BE96; color: black;border-radius: 3px; ">
-                <!-- Sign-out button -->
-        <form method="post" action="logout.php">
-            <input type="submit" value="Sign Out" style="background-color: #E89797; color: black; border-radius: 3px;" >
-        </form>
+        <input type="submit" value="Save Changes" style="background-color: #2e8b57;">
+            <!-- Sign-out link -->
+        <a href="logout.php" style="background-color: #bd353e; color: white; padding: 10px 20px;">Sign Out</a>
+    </form>
+
 </body>
 </html>
 
 <?php require __DIR__ . "/inc/footer.php"; ?>
+
+<?php
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Update the user details in the session
+    $_SESSION['user']['F_name'] = $_POST['F_name'];
+    $_SESSION['user']['S_name'] = $_POST['S_name'];
+    $_SESSION['user']['Email'] = $_POST['Email'];
+    $_SESSION['user']['Phone_number'] = $_POST['Phone_number'];
+    $_SESSION['user']['Address'] = $_POST['Address'];
+
+    // Redirect the user back to the account settings page
+    redirect('account_settings.php');
+}
+?>

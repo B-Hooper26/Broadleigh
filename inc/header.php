@@ -72,9 +72,10 @@ if (session_status() === PHP_SESSION_NONE) {
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+      <!-- Show navbar links only when the user is logged in -->
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="./index.php">Home</a>
+          <a class="nav-link" href="./Home.php">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./account_settings.php">Your Account</a>
