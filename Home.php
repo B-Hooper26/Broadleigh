@@ -31,4 +31,5 @@ if (session_status() === PHP_SESSION_NONE) {
         background-color: #0056b3; /* Darker blue on hover */
         transform: scale(1.05); 
     }
+    
 </style>

@@ -58,6 +58,14 @@ if (session_status() === PHP_SESSION_NONE) {
       flex-grow: 1;
       text-align: center;
     }
+
+    .navbar-toggler {
+      border: none;
+      padding: 0.25rem 0.75rem;
+      font-size: 1.25rem;
+      line-height: 1;
+      background-color: transparent;
+    }
   </style>
 </head>
 <body>
